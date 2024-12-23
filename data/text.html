@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Options</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .question-container {
+            background: #ffffff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .option input[type="checkbox"] {
+            margin-right: 10px;
+            accent-color: #007bff; /* Checkbox color */
+            width: 18px;
+            height: 18px;
+        }
+
+        .option label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .abbreviation {
+            font-weight: bold;
+            color: #007bff;
+            margin-right: 8px;
+            text-transform: lowercase;
+        }
+
+        .option-text {
+            color: #333;
+            font-size: 16px;
+        }
+
+        .option:hover .option-text {
+            color: #007bff;
+        }
+
+        .option:hover .abbreviation {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question-container">
+            <p class="question-title">Select the correct options:</p>
+            <div class="option">
+                <input type="checkbox" id="option-a" name="option-a" value="a">
+                <label for="option-a">
+                    <span class="abbreviation">a.</span>
+                    <span class="option-text">Base excess</span>
+                </label>
+            </div>
+            <div class="option">
+                <input type="checkbox" id="option-b" name="option-b" value="b">
+                <label for="option-b">
+                    <span class="abbreviation">b.</span>
+                    <span class="option-text">Bicarbonate</span>
+                </label>
+            </div>
+            <div class="option">
+                <input type="checkbox" id="option-c" name="option-c" value="c">
+                <label for="option-c">
+                    <span class="abbreviation">c.</span>
+                    <span class="option-text">Carbon dioxide</span>
+                </label>
+            </div>
+            <div class="option">
+                <input type="checkbox" id="option-d" name="option-d" value="d">
+                <label for="option-d">
+                    <span class="abbreviation">d.</span>
+                    <span class="option-text">Carbon monoxide</span>
+                </label>
+            </div>
+            <div class="option">
+                <input type="checkbox" id="option-e" name="option-e" value="e">
+                <label for="option-e">
+                    <span class="abbreviation">e.</span>
+                    <span class="option-text">Oxygen</span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <footer>
+        © 2024 Question Options Example
+    </footer>
+</body>
+</html>

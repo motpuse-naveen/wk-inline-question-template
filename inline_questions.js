@@ -1,4 +1,11 @@
 //"st-upper-alpha", "st-lower-alpha", "st-upper-roman", "st-lower-roman", "st-decimal", "st-none"
+const styleTypes = {
+  'st-upper-alpha': ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
+  'st-lower-alpha': ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"],
+  'st-upper-roman': ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX"],
+  'st-lower-roman': ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x", "xi", "xii", "xiii", "xiv", "xv", "xvi", "xvii", "xviii", "xix", "xx"],
+  'st-decimal':["1" ,"2","3","4","5","6","7","8","9","10","11","12","13","14","15", "16","17","18","19","20"]
+}
 
 class QuestionRenderer {
   constructor(questions,sharedProperties) {
@@ -65,6 +72,7 @@ class QuestionRenderer {
 
 class MCMS_Handler{
   render(question) {
+    question.options = shuffleArray(question.options);
     const div = $(`
       <div id="${question.id}" class="question-main mcms" role="group" aria-labelledby="question_text_${question.id}">
       ${question.questionTitle!="" ? `<div class="question-title">${question.questionTitle}</div>` : ''}
@@ -72,17 +80,20 @@ class MCMS_Handler{
         <div class="groupWrapper">
           <ul class="ques_checkboxgroup" role="radiogroup" aria-labelledby="question_text_${question.id}">
             ${question.options.map((option, index) =>
-              `<li>
+              `<li optionId="${option.id}">
                 <span class="optionState" correct="${option.correct}" aria-hidden="true"></span>
-                <input class="optionCheckbox" type="checkbox" name="${question.id}" id="${question.id}_${index}" value="${option.text}" correct="${option.correct}" />
-                <label class="optionLabel" for="${question.id}_${index}">${option.text}</label>
+                <input class="optionCheckbox" type="checkbox" name="${question.id}" id="${option.id}" value="${option.text}" correct="${option.correct}" />
+                <label class="optionLabel" for="${option.id}">
+                  ${question.optionStyleType!=undefined && question.optionStyleType!= "" ? `<span class="opt-abbr">${styleTypes[question.optionStyleType][index]}.</span>` : ''}
+                  <span class="opt-txt">${option.text}</span>
+                </label>
               </li>`
             ).join('')}
           </ul>
           <div class="question-feedback dis-none" aria-hidden="true"></div>
           <div class="question-controls">
-              <button class="btn_style submit-btn disabled" aria-disabled="true">Submit</button>
-              <button class="btn_style reset-btn dis-none" aria-hidden="true">Try Again</button>
+              <button class="btn_style_primary submit-btn disabled" aria-disabled="true">Submit</button>
+              <button class="btn_style_secondary reset-btn dis-none" aria-hidden="true">Try Again</button>
           </div>
         </div>
       </div>
@@ -205,6 +216,7 @@ class MCMS_Handler{
 
 class MCQ_Handler {
   render(question) {
+    question.options = shuffleArray(question.options);
     const div = $(`
       <div id="${question.id}" class="question-main mcq" role="group" aria-labelledby="question_text_${question.id}">
         ${question.questionTitle!="" ? `<div class="question-title">${question.questionTitle}</div>` : ''}
@@ -212,17 +224,20 @@ class MCQ_Handler {
         <div class="groupWrapper">
           <ul class="ques_radiogroup" role="radiogroup" aria-labelledby="question_text_${question.id}">
             ${question.options.map((option, index) =>
-              `<li>
+              `<li optionId="${option.id}">
                 <span class="optionState" correct="${option.correct}" aria-hidden="true"></span>
-                <input class="optionCheckbox" type="radio" name="${question.id}" id="${question.id}_${index}" value="${option.text}" correct="${option.correct}" />
-                <label  class="optionLabel" for="${question.id}_${index}">${option.text}</label>
+                <input class="optionCheckbox" type="radio" name="${question.id}" id="${option.id}" value="${option.text}" correct="${option.correct}" />
+                <label  class="optionLabel" for="${option.id}">
+                  ${question.optionStyleType!=undefined && question.optionStyleType!= "" ? `<span class="opt-abbr">${styleTypes[question.optionStyleType][index]}.</span>` : ''}
+                  <span class="opt-txt">${option.text}</span>
+                </label>
               </li>`
             ).join('')}
           </ul>
           <div class="question-feedback dis-none" aria-hidden="true"></div>
           <div class="question-controls">
-            <button class="btn_style submit-btn disabled" aria-disabled="true">Submit</button>
-            <button class="btn_style reset-btn dis-none" aria-hidden="true">Try Again</button>
+            <button class="btn_style_primary submit-btn disabled" aria-disabled="true">Submit</button>
+            <button class="btn_style_secondary reset-btn dis-none" aria-hidden="true">Try Again</button>
           </div>
         </div>
       </div>
@@ -360,8 +375,8 @@ class SAQ_Handler {
           </div>
           <div class="question-feedback dis-none" aria-hidden="true"></div>
           <div class="question-controls">
-              <button class="btn_style submit-btn disabled" aria-disabled="true">Submit</button>
-              <button class="btn_style reset-btn dis-none" aria-hidden="true">Try Again</button>
+              <button class="btn_style_primary submit-btn disabled" aria-disabled="true">Submit</button>
+              <button class="btn_style_secondary reset-btn dis-none" aria-hidden="true">Try Again</button>
           </div>
         </div>
       </div>
@@ -459,7 +474,7 @@ class SAQ_Handler {
     questionContainer.attr("submitted","false");
     submitBtn.focus();
   }
-  
+
 }
 
 class SAX_Handler{
@@ -475,9 +490,9 @@ class SAX_Handler{
           </div>
           <div class="question-feedback dis-none" aria-hidden="true"></div>
           <div class="question-controls">
-              <button class="btn_style submit-btn disabled" aria-disabled="true">Submit</button>
-              <button class="btn_style reset-btn dis-none" aria-hidden="true">Try Again</button>
-              <button class="btn_style icon show-answer-btn floatright" aria-expanded="false">Show Answer</button>
+              <button class="btn_style_primary submit-btn disabled" aria-disabled="true">Submit</button>
+              <button class="btn_style_secondary reset-btn dis-none" aria-hidden="true">Try Again</button>
+              <button class="btn_style_info icon show-answer-btn floatright" aria-expanded="false">Show Answer</button>
           </div>
           <div class="question-explanation dis-none" aria-hidden="true" aria-describedby="ariaAnswerExplanation">${question.explanation}</div>
         </div>
@@ -618,6 +633,20 @@ function ariaAnnounce(msg) {
     }, 5000);
 };
 
+function escapeHtml(text) {
+  return text
+      .replace(/&/g, "&amp;")  // Escape ampersand
+      .replace(/</g, "&lt;")   // Escape less-than sign
+      .replace(/>/g, "&gt;");  // Escape greater-than sign
+}
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+  }
+  return array;
+}
 
 // Initialize the renderer
 $(document).ready(function () {
