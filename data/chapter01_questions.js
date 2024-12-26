@@ -8,6 +8,8 @@ const inline_questions = {
     borderedBox:"true",//"true", "false"
     //alignment: "left" with borderedBox: "false" will be more suitable along with maxWidth: "100%"
     //alignment: "center" with borderedBox: "true" will be more suitable along with maxWidth: anything
+    maxAttempts: 2 //0 will be unlimited attempts untill user answers question correctly. 
+    //1, 2, 3 etc will be the limits to no of maximum attempts.
   }, 
   questions: [
     {
@@ -75,6 +77,7 @@ const inline_questions = {
         ],
         correctFeedback: `Correct. You have selected right answers.`,
         incorrectFeedback: `Incorrect, Selected answers are not correct. Please try again.`,
+        attemptsExhaustedFeedback: `Incorrect, Selected answers are not correct. Your retry attempts are exhausted.`,
         optionRandomize:true,
         optionStyleType:"st-lower-alpha",
         btnShowAnswer:true,
@@ -88,7 +91,9 @@ const inline_questions = {
         answer:`My Answer`,//Text only not html
         generalFeedback:`Thanks for the values reported from a blood gas measurement in your lab.`,//Applicable only for Short Answer, if the user answer is not a fix value.
         correctFeedback:`Your answer is correct!`,
-        incorrectFeedback:`Your answer is incorrect. The correct answer is: "My Answer"`,
+        incorrectFeedback:`That's not quite right. Let’s try again.`,
+        attemptsExhaustedFeedback: `That's not quite right. Your retry attempts are exhausted. The correct answer is:`,
+        btnShowAnswer:true,
     },
     {
         id: "q2",
@@ -114,9 +119,11 @@ const inline_questions = {
         },
         ],
         correctFeedback: `Correct. You have selected right answer.`,
-        incorrectFeedback: `Incorrect. You have selected wrong answer.`,
+        incorrectFeedback: `Incorrect. You have selected wrong answer. Please try again.`,
+        attemptsExhaustedFeedback: `Incorrect. You have selected wrong answer. Your retry attempts are exhausted.`,
         optionRandomize:true,
         optionStyleType:"st-lower-alpha",
+        btnShowAnswer:false,
     },
     {
         id: "q8",
@@ -147,9 +154,11 @@ const inline_questions = {
         },
         ],
         correctFeedback: `Correct. You have selected right answer.`,
-        incorrectFeedback: `Incorrect. You have selected wrong answer.`,
+        incorrectFeedback: `Incorrect. You have selected wrong answer. Please try again.`,
+        attemptsExhaustedFeedback: `Incorrect. You have selected wrong answer. Your retry attempts are exhausted.`,
         optionRandomize:true,
         optionStyleType:"st-lower-alpha",
+        btnShowAnswer:false,
     },
     {
         id: "q6",
@@ -160,9 +169,11 @@ const inline_questions = {
         answer:`Change the environment or adapt physiologically.`,//Text only not html
         generalFeedback:`Thanks for the values reported from a blood gas measurement in your lab.`,//Applicable only for Short Answer, if the user answer is not a fix value.
         correctFeedback:`Your answer is correct!`,
-        incorrectFeedback:`Your answer is incorrect. The correct answer is: "Change the environment or adapt physiologically."`,
+        incorrectFeedback:`That's not quite right. Let’s try again.`,
+        attemptsExhaustedFeedback: `That's not quite right. Your retry attempts are exhausted. The correct answer is:`,
         explanation: `<p><strong>Change the environment:</strong> Use tools like oxygen tanks or pressurized cabins to increase oxygen availability.</p>
-        <p><strong>Adapt physiologically:</strong> The body adjusts over time by producing more red blood cells, increasing breathing rate, and improving oxygen delivery.</p>`
+        <p><strong>Adapt physiologically:</strong> The body adjusts over time by producing more red blood cells, increasing breathing rate, and improving oxygen delivery.</p>`,
+        btnShowAnswer:false,
     },
     {
         id: "q5",
@@ -194,8 +205,10 @@ const inline_questions = {
         ],
         correctFeedback: `Correct. You have selected right answers.`,
         incorrectFeedback: `Incorrect, Selected answers are not correct. Please try again.`,
+        attemptsExhaustedFeedback: `Incorrect, Selected answers are not correct. Your retry attempts are exhausted.`,
         optionRandomize:true,
         optionStyleType:"st-lower-alpha",
+        btnShowAnswer:false,
     },
     {
         id: "q4",
@@ -206,8 +219,10 @@ const inline_questions = {
         answer:`alveolar PO2 is directly related to the inspired oxygen pressure and inversely related to the PaCO2.`,//Text only not html
         generalFeedback:`Thanks for the values reported from a blood gas measurement in your lab.`,//Applicable only for Short Answer, if the user answer is not a fix value.
         correctFeedback:`Your answer is correct!`,
-        incorrectFeedback:`Your answer is incorrect. The correct answer is: "Alveolar PO2 is directly related to the inspired oxygen pressure and inversely related to the PaCO2."`,
-        explanation: `<p>The alveolar gas equation, introduced in the next chapter, shows that alveolar PO2 is directly related to the inspired oxygen pressure and inversely related to the PaCO2. The inspired oxygen pressure is fixed by the FIO2 and barometric pressure. Mountain climbers adapt at altitude principally by lowering PaCO2, thereby raising their alveolar (and arterial) PO2.</p>`
+        incorrectFeedback:`That's not quite right. Let’s try again.`,
+        attemptsExhaustedFeedback: `That's not quite right. Your retry attempts are exhausted. The correct answer is:`,
+        explanation: `<p>The alveolar gas equation, introduced in the next chapter, shows that alveolar PO2 is directly related to the inspired oxygen pressure and inversely related to the PaCO2. The inspired oxygen pressure is fixed by the FIO2 and barometric pressure. Mountain climbers adapt at altitude principally by lowering PaCO2, thereby raising their alveolar (and arterial) PO2.</p>`,
+        btnShowAnswer:false,
     },
     {
         id: "q7",
@@ -264,8 +279,10 @@ const inline_questions = {
         ],
         correctFeedback: `Correct. You have selected right answers.`,
         incorrectFeedback: `Incorrect, Selected answers are not correct. Please try again.`,
+        attemptsExhaustedFeedback: `Incorrect, Selected answers are not correct. Your retry attempts are exhausted.`,
         optionRandomize:true,
         optionStyleType:"st-upper-alpha",
+        btnShowAnswer:false,
     },
   ],
 };
